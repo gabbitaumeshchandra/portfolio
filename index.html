@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Umesh Chandra Gabbita — Data Science Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --bg: #0A0C10;
+      --surface: #111318;
+      --border: #1E2230;
+      --accent: #4DFFC3;
+      /* electric mint — data terminal feel */
+      --accent2: #7B61FF;
+      /* violet for secondary highlights */
+      --text: #E8EAF0;
+      --muted: #5C6278;
+      --display: 'Syne', sans-serif;
+      --mono: 'IBM Plex Mono', monospace;
+      --body: 'Inter', sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(10, 12, 16, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Signature element: animated data-grid background */
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(77, 255, 195, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(77, 255, 195, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 70% 70% at 60% 40%, black 0%, transparent 80%);
+      animation: grid-drift 20s linear infinite;
+    }
+
+    @keyframes grid-drift {
+      0% {
+        background-position: 0 0;
+      }
+
+      100% {
+        background-position: 48px 48px;
+      }
+    }
+
+    /* Floating orb */
+    .orb {
+      position: absolute;
+      right: -10%;
+      top: 15%;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(123, 97, 255, 0.18) 0%, rgba(77, 255, 195, 0.06) 50%, transparent 70%);
+      animation: orb-pulse 6s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes orb-pulse {
+      0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: scale(1.1) translate(-20px, 30px);
+        opacity: 1;
+      }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 .name-line {
+      display: block;
+    }
+
+    h1 .accent-word {
+      color: var(--accent);
+    }
+
+    .hero-bio {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.8rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(77, 255, 195, 0.25);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── SECTION COMMON ── */
+    section {
+      padding: 6rem 4rem;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 3rem;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── ABOUT / SKILLS ── */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      line-height: 1.8;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .skill-chip {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      padding: 0.6rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .skill-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .skill-chip.highlight {
+      border-color: rgba(77, 255, 195, 0.3);
+      background: rgba(77, 255, 195, 0.05);
+      color: var(--accent);
+    }
+
+    /* ── TIMELINE ── */
+    #experience {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-left: 1px solid var(--border);
+      margin-left: 1rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2.5rem;
+      padding: 2rem 0 2rem 2.5rem;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-item:last-child {
+      border-bottom: none;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 2.4rem;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(77, 255, 195, 0.5);
+    }
+
+    .timeline-meta {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.8;
+      padding-top: 0.15rem;
+    }
+
+    .timeline-meta .period {
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-content h3 {
+      font-family: var(--display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-content .org {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent2);
+      margin-bottom: 0.75rem;
+    }
+
+    .timeline-content p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
+
+    /* ── CERTS ── */
+    #certifications {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .cert-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.75rem;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cert-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .cert-card:hover {
+      border-color: rgba(77, 255, 195, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .cert-card:hover::after {
+      opacity: 1;
+    }
+
+    .cert-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .cert-card h3 {
+      font-family: var(--display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+    }
+
+    .cert-card p {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      text-align: center;
+      padding: 7rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-glow {
+      position: absolute;
+      bottom: -40%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(77, 255, 195, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    #contact h2 {
+      margin-bottom: 1rem;
+    }
+
+    .contact-sub {
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+    }
+
+    .contact-links a {
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .contact-links a:hover {
+      color: var(--accent);
+    }
+
+    .contact-sep {
+      color: var(--border);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        gap: 1.25rem;
+      }
+
+      section,
+      #hero {
+        padding: 5rem 1.5rem 3rem;
+      }
+
+      #about {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .grid-bg,
+      .orb {
+        animation: none;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">ucg.dev</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="grid-bg"></div>
+    <div class="orb"></div>
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Data Science · AI · Python · SQL</p>
+      <h1>
+        <span class="name-line">Umesh Chandra</span>
+        <span class="name-line accent-word">Gabbita</span>
+      </h1>
+      <p class="hero-bio">
+        Turning ideas into intelligent applications with code and creativity.
+        Passionate about AI, web development, and solving real-world problems.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contact">Get in touch</a>
+        <a class="btn btn-secondary" href="#experience">View experience</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ABOUT + SKILLS -->
+  <section id="about">
+    <div class="about-text reveal">
+      <p class="section-label">About</p>
+      <h2>Curious in Building.<br />Serious about AI.</h2>
+      <p>
+        I'm an Engineering Graduate of Data Science Branch at GATES Institute of Technology, Gooty. I spend my time
+        experimenting with machine learning models, building data pipelines, and exploring the rapidly changing
+        landscape of generative AI.
+      </p>
+      <p>
+        My goal is to work at the intersection of engineering and intelligence—writing systems that learn, adapt, and
+        make an impact on real problems.
+      </p>
+    </div>
+    <div class="reveal" style="transition-delay: 0.15s">
+      <p class="section-label" style="margin-bottom:1.25rem">Skills &amp; Tools</p>
+      <div class="skills-grid">
+        <span class="skill-chip highlight">Python</span>
+        <span class="skill-chip highlight">SQL</span>
+        <span class="skill-chip highlight">HTML</span>
+        <span class="skill-chip highlight">Generative AI</span>
+        <span class="skill-chip">CSS</span>
+        <span class="skill-chip">DSA</span>
+        <span class="skill-chip">Vibe Coding</span>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE + EDUCATION -->
+  <section id="experience">
+    <div style="max-width:1100px; margin:0 auto;">
+      <p class="section-label reveal">Experience &amp; Education</p>
+      <h2 class="reveal">The journey so far</h2>
+      <div class="timeline">
+
+        <!-- ===================== PROJECTS ===================== -->
+
+        <section id="projects">
+
+          <p class="section-label reveal">Projects</p>
+
+          <h2 class="reveal">
+            Featured Projects
+          </h2>
+
+          <div class="projects-grid">
+
+            <!-- Project 1 -->
+
+            <div class="project-card reveal">
+              <h3>HealthAI – Intelligent Healthcare Assistant</h3>
+
+              <p>
+                AI-powered healthcare assistant built using IBM Granite and Streamlit.
+                Provides intelligent chatbot support, voice interaction, disease
+                prediction, treatment suggestions, and an intuitive healthcare dashboard
+                for patients and caregivers.
+              </p>
+
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>IBM Granite</span>
+                <span>Streamlit</span>
+                <span>AI</span>
+              </div>
+
+              <div class="project-links">
+                <a href="https://github.com/gabbitaumeshchandra/gabbitaumeshchandra-HealthAI-Intelligent-Healthcare-Assistant-Using-IBM-Granite"
+                  target="_blank">
+                  GitHub
+                </a>
+              </div>
+            </div>
+
+            <!-- Project 2 -->
+
+            <div class="project-card reveal">
+              <h3>Smart Voting System using Face Recognition</h3>
+
+              <p>
+                Developed a secure electronic voting system using Face Recognition,
+                OpenCV, Machine Learning, HOG and SVM algorithms to authenticate voters
+                and eliminate duplicate voting. Published as a research paper.
+              </p>
+
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>OpenCV</span>
+                <span>Machine Learning</span>
+                <span>Face Recognition</span>
+              </div>
+
+              <div class="project-links">
+                <a href="#">Research Paper</a>
+              </div>
+            </div>
+
+
+            <!-- Project 3 -->
+
+            <div class="project-card reveal">
+              <h3>Jarvis AI Desktop Assistant</h3>
+
+              <p>
+                Building a voice-controlled desktop AI assistant capable of speech
+                recognition, local LLM interaction, automation, and intelligent command
+                execution using Ollama and Faster Whisper.
+              </p>
+
+              <div class="tech-stack">
+                <span>Python</span>
+                <span>Ollama</span>
+                <span>Whisper</span>
+                <span>LLM</span>
+              </div>
+
+              <div class="project-links">
+                <a href="#">GitHub</a>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ===================== INTERNSHIPS ===================== -->
+
+        <section id="internships">
+
+          <p class="section-label reveal">Internships</p>
+
+          <h2 class="reveal">
+            Experience Through Industry Programs
+          </h2>
+
+          <div class="timeline-content">
+            <div class="timeline-meta">
+              <span class="period">May 2025-July 2025</span>
+              Virtual Program
+            </div>
+            <h3>Gen Ai Using IBM Cloud-Short-term Internship</h3>
+            <div class="org">SmartBridge</div>
+
+            <p>
+              Learned basics of Generative AI and its practical applications
+              •Used IBM Cloud platform for experimenting with AI tools
+              •Practiced prompt writing and AI model usage
+              •Understood real-world applications like chatbots and content generatio
+            </p>
+
+          </div>
+
+          <div class="timeline-content">
+            <div class="timeline-meta">
+              <span class="period">Feb 2026-August 2026</span>
+            </div>
+            <h3>Python Full Stack Developer Training & Internship (Ongoing)</h3>
+            <div class="org">Pentagon space</div>
+
+            <p>
+              Currently undergoing hands-on training in Python Full Stack Development.
+              Completed modules in Python, HTML5, CSS3, and SQL.
+              Currently learning JavaScript, React.js, and Django as part of the curriculum.
+              Developing responsive web pages using HTML and CSS.
+              Writing Python programs and working with SQL databases.
+              Building projects to strengthen frontend, backend, and database development skills.
+            </p>
+
+          </div>
+
+      </div>
+
+
+
+  </section>
+
+  < <div class="timeline-item reveal">
+    <div class="timeline-meta">
+      <span class="period">Sep 2022 — 2026</span>
+      Gooty, Andhra Pradesh
+    </div>
+    <div class="timeline-content">
+      <h3>B.Tech in Data Science</h3>
+      <div class="org">GATES Institute of Technology</div>
+      <p>Pursuing a four-year undergraduate degree focused on data science fundamentals, AI, machine learning, and
+        software engineering. Graduated in 2026.</p>
+    </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-meta">
+        <span class="period">Oct 2020 — Apr 2022</span>
+        India
+      </div>
+      <div class="timeline-content">
+        <h3>Intermediate (MPC)</h3>
+        <div class="org">Narayana Junior College</div>
+        <p>Completed intermediate studies with a focus on Mathematics, Physics, and Chemistry, building the
+          analytical foundation for a future in technology.</p>
+      </div>
+    </div>
+
+    </div>
+    </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section>
+      <div id="certifications" style="max-width:1100px; margin:0 auto;">
+        <p class="section-label reveal">Certifications</p>
+        <h2 class="reveal">Verified credentials</h2>
+        <div class="certs-grid">
+
+          <div class="cert-card reveal">
+            <div class="cert-icon">📊</div>
+            <h3>Data Fundamentals</h3>
+            <p>Core principles of data analysis, structures, and workflows.</p>
+          </div>
+
+          <div class="cert-card reveal" style="transition-delay:0.05s">
+            <div class="cert-icon">🤖</div>
+            <h3>Generative AI in Action</h3>
+            <p>Practical applications of large language models and generative systems.</p>
+          </div>
+
+          <div class="cert-card reveal" style="transition-delay:0.1s">
+            <div class="cert-icon">🔷</div>
+            <h3>Deloitte Australia — Data Analytics Job Simulation</h3>
+            <p>Real-world consulting analytics simulation via Forage.</p>
+          </div>
+
+          <div class="cert-card reveal" style="transition-delay:0.15s">
+            <div class="cert-icon">⚡</div>
+            <h3>Tata — GenAI Powered Data Analytics Simulation</h3>
+            <p>AI-driven analytics use cases within an enterprise setting.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="contact-glow"></div>
+      <p class="section-label reveal">Contact</p>
+      <h2 class="reveal">Let's build something together.</h2>
+      <p class="contact-sub reveal">Open to internships, Full-time freshers Roles in the domains of Database Developer,
+        Fronntend Developer and Web Developer</p>
+      <div class="contact-links reveal">
+        <a href="mailto:gabbitaumeshchandra@gmail.com">
+          ✉ gabbitaumeshchandra@gmail.com
+        </a>
+        <span class="contact-sep">·</span>
+        <a href="tel:+919121326344">
+          📞 +91 91213 26344
+        </a>
+        <span class="contact-sep">·</span>
+        <a href="https://www.linkedin.com/in/umeshchandra-gabbita-b51813253" target="_blank" rel="noopener">
+          🔗 LinkedIn
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <span>© 2026 Umesh Chandra Gabbita</span>
+      <span>JP-nagar, Banglore India</span>
+    </footer>
+
+    <!-- SCROLL REVEAL SCRIPT -->
+    <script>
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      reveals.forEach(el => observer.observe(el));
+    </script>
+
+</body>
+
+</html>
